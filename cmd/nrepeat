@@ -1,0 +1,17 @@
+#!/bin/sh
+
+nrepeat() {
+    if [ "$#" -lt 2 ]; then
+        LogError "too few args"
+        return 1
+    fi
+
+    n="$1"
+    shift
+    cmd="$*"
+
+    while [ "$n" -gt 0 ]; do
+        eval "$cmd"
+        n=$((n-1))
+    done
+}
