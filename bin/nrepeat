@@ -2,7 +2,7 @@
 
 nrepeat() {
     if [ "$#" -lt 2 ]; then
-        LogError "too few args"
+        echo "too few args"
         return 1
     fi
 
