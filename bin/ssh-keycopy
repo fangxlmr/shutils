@@ -1,0 +1,28 @@
+#!/bin/sh
+
+ssh_keycopy() {
+    if [ "$#" -lt 1 ]; then
+        echo "too few args"
+        echo "usage: ssh-keycopy [user@]host [port]"
+        return 1
+    fi
+
+    addr="$1"
+    port="$2"
+    id_pub="$HOME/.ssh/id_rsa.pub"
+
+    if [ "x$port" = "x" ]; then
+        port=22
+    fi
+
+    if [ ! -f "$id_pub" ]; then
+        echo "no public key file: $id_pub"
+        echo "run ssh-keygen to generate it"
+        return 1
+    else
+        echo "coping public key"
+        ssh "$addr" -p "$port" 'mkdir -p "$HOME/.ssh" && cat >> "$HOME/.ssh/authorized_keys"' < "$id_pub"
+    fi
+}
+
+ssh_keycopy "$@"
