@@ -15,3 +15,5 @@ nrepeat() {
         n=$((n-1))
     done
 }
+
+nrepeat "$@"
